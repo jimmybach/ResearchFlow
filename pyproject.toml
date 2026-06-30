@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "researchflow"
+version = "0.1.0"
+
+dependencies = [
+ "langchain_google-genai",
+ "langchain_core",
+ "langgraph",
+ "langgraph-prebuilt",
+ "langchain-mcp-adapters"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
