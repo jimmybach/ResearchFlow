@@ -1,5 +1,5 @@
 import re
-
+from src.schema.paper import Paper
 
 def extract_pmids(search_result):
     text = search_result[0]["text"]
@@ -23,34 +23,35 @@ def extract(pattern, text):
 
     return None
 
-def parse_paper(block):
+def parse_paper(block: str) -> Paper | None:
+    block = block.strip()
 
-    return {
-        "title": extract(r"^(.*?)\n", block),
+    title = extract(r"^(.*?)\n", block)
+    pmid = extract(r"\*\*PMID:\*\*\s*(.*?)\n", block)
 
-        "authors": extract(
-            r"\*\*Authors.*?\*\*\s*(.*?)\n\n",
-            block,
-        ),
+    if not title or not pmid:
+        return None
 
-        "journal": extract(
-            r"\*\*Journal:\*\*\s*(.*?)\n",
-            block,
-        ),
+    authors_text = extract(
+        r"\*\*Authors.*?\*\*\s*(.*?)\n\n",
+        block,
+    )
 
-        "pmid": extract(
-            r"\*\*PMID:\*\*\s*(.*?)\n",
-            block,
-        ),
+    authors = (
+        [
+            line.strip("- ").strip()
+            for line in authors_text.splitlines()
+            if line.strip()
+        ]
+        if authors_text
+        else []
+    )
 
-        "doi": extract(
-            r"\*\*DOI:\*\*\s*(.*?)\n",
-            block,
-        ),
-
-        "abstract": extract(
-            r"#### Abstract\n(.*?)(?:\n####|\Z)",
-            block,
-        ),
-    }
-
+    return Paper(
+        title=title,
+        authors=authors,
+        journal=extract(r"\*\*Journal:\*\*\s*(.*?)\n", block) or "",
+        pmid=pmid,
+        doi=extract(r"\*\*DOI:\*\*\s*(.*?)\n", block) or "",
+        abstract=extract(r"#### Abstract\n(.*?)(?:\n####|\Z)", block) or "",
+    )

@@ -23,7 +23,6 @@ async def search_pubmed_papers(queries: list[str]) -> list[dict]:
         if not new_pmids:
             continue
         
-        papers_list=[]
         papers = await pubmed_service.fetch_papers_cached(new_pmids)
 
         papers_list.extend(papers)

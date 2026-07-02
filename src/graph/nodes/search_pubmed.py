@@ -9,6 +9,6 @@ async def search_pubmed_node(state: GraphState):
     papers_list= await search_pubmed_papers(state["queries"])
     
     return {
-        "papers": papers_list[1:]  # Exclude the first block which is empty due to the split
+        "papers": papers_list
     }
 

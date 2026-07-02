@@ -1,3 +1,4 @@
+import asyncio
 from asyncio.log import logger
 import json
 from pathlib import Path
@@ -9,29 +10,49 @@ CACHE_DIR = Path("data/cache/pubmed")
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from src.services.mcp.get_tools import get_mcp_tools, get_tool_map
+from src.schema.paper import Paper
+
 import logging
 class PubMedService:
 
-    def __init__(self):
+    def __init__(self, cache_dir: Path = CACHE_DIR):
         self.client =  MultiServerMCPClient({
                       "pubmed-mcp-server": {
                         "transport": "http",
                         "url": "https://pubmed.caseyjhand.com/mcp"
                         }
                       })
+        self.cache_dir = cache_dir
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.tool_map = None
 
-    async def initialize(self):
-        logger = logging.getLogger(__name__)
-        logger.debug("Initializing PubMedService...")
-        
-        tools = await self.client.get_tools()
-        self.tool_map = {
-            tool.name: tool
-            for tool in tools
-        }
+    async def initialize(self, retries: int = 3, delay: float = 2.0):
+            logger.debug("Initializing PubMedService...")
 
+            for attempt in range(1, retries + 1):
+                try:
+                    tools = await self.client.get_tools()
+                    self.tool_map = {tool.name: tool for tool in tools}
+
+                    logger.info(
+                        "PubMedService initialized with %d tools",
+                        len(self.tool_map),
+                    )
+
+                    return
+
+                except Exception as e:
+                    logger.warning(
+                        "PubMedService initialization failed attempt %d/%d: %s",
+                        attempt,
+                        retries,
+                        e,
+                    )
+
+                    if attempt == retries:
+                        raise
+
+                    await asyncio.sleep(delay)
     async def search(self, query: str):
         return await self.tool_map["pubmed_search_articles"].ainvoke({'query': query})
 
@@ -58,7 +79,9 @@ class PubMedService:
           paper_blocks = re.split(r"\n### ", fetch_result[0]["text"])
           fetched_papers = []
           for paper_block in paper_blocks:
-            fetched_papers.append(parse_paper(paper_block))
+            parsed_paper = parse_paper(paper_block)
+            if parsed_paper:
+                fetched_papers.append(parsed_paper)
 
           for paper in fetched_papers:
               self._cache_paper(paper)
@@ -77,10 +100,11 @@ class PubMedService:
             return None
 
         with open(path, "r") as f:
-            return json.load(f)
+            return Paper(**json.load(f))
 
-    def _cache_paper(self, paper: dict):
-        pmid = paper.get("pmid")
+    def _cache_paper(self, paper: Paper):
+        paper=paper.model_dump()
+        pmid = paper["pmid"]
 
         if not pmid:
             return
