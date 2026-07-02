@@ -11,7 +11,8 @@ dependencies = [
  "langchain_core",
  "langgraph",
  "langgraph-prebuilt",
- "langchain-mcp-adapters"
+ "langchain-mcp-adapters",
+ "dotenv"
 ]
 
 [project.optional-dependencies]
