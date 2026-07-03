@@ -25,11 +25,11 @@ Paper Summaries
 ---------------
 {paper_summaries}
 
-Literature Synthesis
+Literature Review
 -----------------
-{literature_synthesis}
+{literature_review}
 
-Evaluate the synthesis according to these criteria:
+Evaluate the review according to these criteria:
 
 1. Does it answer the research question?
 2. Are all major themes from the paper summaries represented?
@@ -39,7 +39,7 @@ Evaluate the synthesis according to these criteria:
 6. Are limitations and research gaps discussed?
 7. Is anything important missing?
 
-If the synthesis is already high quality, set
+If the review is already high quality, set
 needs_revision = false.
 
 Otherwise:

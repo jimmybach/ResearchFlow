@@ -26,7 +26,7 @@ Paper summaries:
 {paper_summaries}
 
 Current literature review:
-{literature_synthesis}
+{literature_review}
 
 Critique:
 {critique}

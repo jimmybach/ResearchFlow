@@ -3,7 +3,7 @@ from langchain_core.prompts import ChatPromptTemplate
 synthesize_literature_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", """You are a public health research assistant. 
-        Create a structured first-pass literature synthesis 
+        Create a structured first-pass literature review
         for the following research question and paper summaries.
         Rules:
         - Be concise.
