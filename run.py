@@ -15,6 +15,8 @@ async def main():
     result = await graph.ainvoke(
         {
             "question": "Exercise and mental health: What is the relationship between physical activity and mental well-being?",
+            "revision_count": 0,
+            "max_revisions": 2
         }
     )
 

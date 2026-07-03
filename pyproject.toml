@@ -12,7 +12,8 @@ dependencies = [
  "langgraph",
  "langgraph-prebuilt",
  "langchain-mcp-adapters",
- "dotenv"
+ "dotenv",
+ "scikit-learn"
 ]
 
 [project.optional-dependencies]

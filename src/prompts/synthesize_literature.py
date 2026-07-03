@@ -1,10 +1,10 @@
 from langchain_core.prompts import ChatPromptTemplate
 
-summarize_prompt = ChatPromptTemplate.from_messages(
+synthesize_literature_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", """You are a public health research assistant. 
         Create a structured first-pass literature synthesis 
-        for the following research question and retrieved papers.
+        for the following research question and paper summaries.
         Rules:
         - Be concise.
         - Do not invent findings not supported by the retrieved papers.
@@ -16,7 +16,7 @@ summarize_prompt = ChatPromptTemplate.from_messages(
         ("user", """Research question:
         {question}
 
-        Retrieved papers:
-        {papers}""")
+        Paper summaries:
+        {paper_summaries}""")
     ]
 )
