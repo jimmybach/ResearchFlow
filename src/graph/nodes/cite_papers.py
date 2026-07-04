@@ -9,5 +9,5 @@ async def cite_papers_node(state):
     citations = await pubmed_service.format_citations(pmids)
     
     return {
-        "citations": citations
+        "citations": pubmed_service.parse_citations(citations[0]['text'])
     }

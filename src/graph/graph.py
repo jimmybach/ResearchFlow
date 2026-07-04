@@ -1,4 +1,4 @@
-from langgraph.graph import START, StateGraph
+from langgraph.graph import START, StateGraph, END
 from graph.nodes.summarize_papers import summarize_papers_node
 from src.graph.state import GraphState
 from src.graph.nodes.generate_queries import generate_queries_node
@@ -12,6 +12,7 @@ from src.graph.nodes.literature_review import review_literature_node
 from src.graph.nodes.review_lit_review import review_literature_review_node
 from src.graph.nodes.revise_lit_review import revise_literature_review_node
 from src.graph.nodes.finalize import finalize_review_node
+from src.graph.nodes.export_review import export_review_node
 from src.utils.routing import should_revise_review, should_search_more
 graph=StateGraph(GraphState)
 
@@ -26,7 +27,7 @@ graph.add_node('review_literature', review_literature_node)
 graph.add_node('review_lit_review', review_literature_review_node)
 graph.add_node("revise_literature_review", revise_literature_review_node)
 graph.add_node("finalize_review", finalize_review_node)
-
+graph.add_node('export_review', export_review_node)
 
 
 
@@ -50,5 +51,6 @@ graph.add_conditional_edges('review_lit_review',
                                 "finalize": 'finalize_review'
                             })
 graph.add_edge('revise_literature_review', 'review_lit_review')
-
+graph.add_edge('finalize_review', 'export_review')
+graph.add_edge('export_review', END)
 graph=graph.compile()

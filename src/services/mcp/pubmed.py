@@ -11,8 +11,9 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from src.schema.paper import Paper
-
-import logging
+from src.schema.citations import Citation
+import logging 
+import re
 class PubMedService:
 
     def __init__(self, cache_dir: Path = CACHE_DIR):
@@ -125,6 +126,41 @@ class PubMedService:
               "format": citation_format,
           }
       )
+
+    def parse_citations(self, text: str) -> list[Citation]:
+      citations = []
+
+      blocks = re.split(r"\n## PMID ", text)
+
+      for block in blocks:
+          block = block.strip()
+
+          if not block or block.startswith("# PubMed Citations"):
+              continue
+
+          pmid = block.split("\n", 1)[0].strip()
+
+          title_match = re.search(r"\*\*(.*?)\*\*", block)
+
+          apa_match = re.search(
+              r"### APA\s*\n(.*?)(?:\n###|\Z)",
+              block,
+              flags=re.DOTALL,
+          )
+
+          if not title_match or not apa_match:
+              continue
+
+          citations.append(
+              Citation(
+                  pmid=pmid,
+                  title=title_match.group(1).strip(),
+                  apa=apa_match.group(1).strip(),
+                  url=f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/",
+              )
+          )
+
+      return citations
     
     
 
