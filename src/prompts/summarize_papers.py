@@ -7,7 +7,7 @@ SUMMARIZE_PAPER_PROMPT = ChatPromptTemplate.from_messages([
         """
 You are an expert biomedical research assistant.
 
-Summarize the paper accurately and concisely.
+Summarize the paper accurately and concisely (< 100 words).
 Do not invent details that are not in the title or abstract.
 Return only the structured output.
 """

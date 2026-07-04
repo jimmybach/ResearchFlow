@@ -4,27 +4,43 @@ from src.graph.state import GraphState
 from src.graph.nodes.generate_queries import generate_queries_node
 from src.graph.nodes.search_pubmed import search_pubmed_node
 from src.graph.nodes.rank_papers import rank_papers_node
+from src.graph.nodes.analyze_coverage import analyze_coverage_node
+from src.graph.nodes.search_followup_pubmed import search_followup_pubmed_node
+from src.graph.nodes.cite_papers import cite_papers_node
 from src.graph.nodes.summarize_papers import summarize_papers_node
 from src.graph.nodes.literature_review import review_literature_node
 from src.graph.nodes.review_lit_review import review_literature_review_node
 from src.graph.nodes.revise_lit_review import revise_literature_review_node
 from src.graph.nodes.finalize import finalize_review_node
-from src.utils.review import should_revise_review
+from src.utils.routing import should_revise_review, should_search_more
 graph=StateGraph(GraphState)
 
 graph.add_node('generate_queries',generate_queries_node)
 graph.add_node('search_pubmed', search_pubmed_node)
 graph.add_node('rank_papers', rank_papers_node)
+graph.add_node('analyze_coverage', analyze_coverage_node)
+graph.add_node('search_followup_pubmed', search_followup_pubmed_node)
+graph.add_node('cite_papers', cite_papers_node)
 graph.add_node('summarize_papers', summarize_papers_node)
 graph.add_node('review_literature', review_literature_node)
 graph.add_node('review_lit_review', review_literature_review_node)
 graph.add_node("revise_literature_review", revise_literature_review_node)
 graph.add_node("finalize_review", finalize_review_node)
 
+
+
+
 graph.add_edge(START, 'generate_queries')
 graph.add_edge('generate_queries','search_pubmed')
 graph.add_edge('search_pubmed', 'rank_papers')
-graph.add_edge('rank_papers', 'summarize_papers')
+graph.add_edge('rank_papers','analyze_coverage')
+graph.add_conditional_edges('analyze_coverage',
+                            should_search_more,
+                            {'summarize_papers':'summarize_papers',
+                             'search_more': 'search_followup_pubmed'})
+
+graph.add_edge('search_followup_pubmed', 'rank_papers')
+graph.add_edge('summarize_papers','cite_papers')
 graph.add_edge('summarize_papers', 'review_literature')
 graph.add_edge('review_literature', 'review_lit_review')
 graph.add_conditional_edges('review_lit_review', 

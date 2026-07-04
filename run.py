@@ -16,12 +16,14 @@ async def main():
         {
             "question": "Exercise and mental health: What is the relationship between physical activity and mental well-being?",
             "revision_count": 0,
-            "max_revisions": 2
+            "max_revisions": 2,
+            "search_iterations": 0,
+            "max_search_iterations": 2
         }
     )
 
     logger = logging.getLogger(__name__)
-    logger.debug(f"Graph execution completed. Result: {result}")
+    logger.debug(f"Graph execution completed. Result: {result['literature_review']}")
 
 
 

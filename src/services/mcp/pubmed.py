@@ -113,6 +113,18 @@ class PubMedService:
 
         with open(path, "w") as f:
             json.dump(paper, f, indent=2)
+
+    async def format_citations(
+      self,
+      pmids: list[str],
+      citation_format: str = "apa"):
+      
+      return await self.tool_map["pubmed_format_citations"].ainvoke(
+          {
+              "pmids": pmids,
+              "format": citation_format,
+          }
+      )
     
     
 
