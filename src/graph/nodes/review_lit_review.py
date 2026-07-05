@@ -2,8 +2,12 @@ from src.graph.state import GraphState
 from prompts.review_lit_review import CRITIQUE_REVIEW_PROMPT
 from schema.review_critique import ReviewCritique
 from src.services.llm import llm
+import logging
 
 async def review_literature_review_node(state: GraphState):
+    logger=logging.getLogger(__name__)
+    logger.debug("Reviewing literature review...")
+    
     chain=CRITIQUE_REVIEW_PROMPT | llm.with_structured_output(ReviewCritique)
 
     review_critique = await chain.ainvoke(

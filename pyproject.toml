@@ -15,7 +15,8 @@ dependencies = [
  "langchain-huggingface",
  "dotenv",
  "scikit-learn",
- "sentence-transformers"
+ "sentence-transformers",
+ "streamlit"
 ]
 
 [project.optional-dependencies]

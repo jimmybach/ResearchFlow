@@ -1,8 +1,8 @@
 from typing import TypedDict
 from pydantic import Field
-from schema.review_critique import ReviewCritique
+from src.schema.review_critique import ReviewCritique
 from src.schema.summary import PaperSummary
-from schema.lit_review import LiteratureReview
+from src.schema.lit_review import LiteratureReview
 from src.schema.queries import SearchQueries
 from src.schema.coverage import CoverageAnalysis
 from src.schema.paper import Paper
@@ -22,4 +22,4 @@ class GraphState(TypedDict):
     revision_count: int = Field(default=0)
     max_revisions: int = Field(default=2)
     review_critique: ReviewCritique
-    export_path: dict[str,str]
+    export_paths: dict[str,str]

@@ -16,6 +16,8 @@ Abstract: {(p.abstract or '')[:1000]}
 
 
 async def analyze_coverage_node(state):
+    logger=logging.getLogger(__name__)
+    logger.debug("Analyzing query question coverage...")
     chain = ANALYZE_COVERAGE_PROMPT | llm.with_structured_output(CoverageAnalysis)
 
     analysis = await chain.ainvoke({
