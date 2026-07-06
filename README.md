@@ -3,7 +3,23 @@
 > An agentic literature review assistant that automatically searches PubMed, retrieves and ranks relevant research papers, synthesizes evidence, critiques its own review, and exports a publication-ready literature review.
 
 ---
+## Quick Start
 
+```bash
+git clone https://github.com/yourusername/ResearchFlow.git
+cd ResearchFlow
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+cp .env.example .env
+# Add your Google API key to .env
+
+streamlit run app/streamlit_app.py
+```
+---
 ## Overview
 
 ResearchFlow is an AI-powered research assistant built with LangGraph that automates the early stages of scientific literature review.
