@@ -391,7 +391,7 @@ Future formats:
 # Installation
 
 ```bash
-git clone https://github.com/yourusername/ResearchFlow.git
+git clone https://github.com/jimmybach/ResearchFlow.git
 
 cd ResearchFlow
 
