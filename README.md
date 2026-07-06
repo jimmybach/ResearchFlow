@@ -194,8 +194,6 @@ Routing decisions are performed dynamically using graph state.
 ---
 ## Architecture Diagram
 
-## Architecture
-
 ```mermaid
 flowchart TD
 
