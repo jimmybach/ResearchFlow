@@ -192,7 +192,48 @@ Examples include:
 Routing decisions are performed dynamically using graph state.
 
 ---
+## Architecture Diagram
 
+## Architecture
+
+```mermaid
+flowchart TD
+
+    User[Research Question]
+    User --> UI[Streamlit UI]
+
+    UI --> Graph[LangGraph Workflow]
+
+    Graph --> Queries[Generate Queries]
+    Queries --> Search[Search PubMed]
+
+    Search --> Rank[Rank Papers]
+
+    Rank --> Coverage[Analyze Coverage]
+
+    Coverage --> Decision{Coverage sufficient?}
+
+    Decision -->|No| Followup[Follow-up Search]
+    Followup --> Search
+
+    Decision -->|Yes| Summaries[Summarize Papers]
+
+    Summaries --> Citations[Generate Citations]
+
+    Citations --> Review[Synthesize Literature Review]
+
+    Review --> Critique[Critique Review]
+
+    Critique --> Revise{Needs revision?}
+
+    Revise -->|Yes| Rewrite[Revise Review]
+    Rewrite --> Critique
+
+    Revise -->|No| Finalize[Finalize Review]
+
+    Finalize --> Export[Export Markdown]
+
+```
 ---
 
 # Design Decisions

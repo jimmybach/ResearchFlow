@@ -12,6 +12,7 @@ class GraphState(TypedDict):
     queries: SearchQueries
     papers: list[Paper]
     ranked_papers: list[Paper]
+    top_k: int
     citations: list[Citation]
     paper_summaries: list[PaperSummary]
     coverage_analysis: CoverageAnalysis
@@ -23,3 +24,4 @@ class GraphState(TypedDict):
     max_revisions: int = Field(default=2)
     review_critique: ReviewCritique
     export_paths: dict[str,str]
+    final_review: LiteratureReview
