@@ -401,7 +401,7 @@ pip install -e .
 Create a `.env` file:
 
 ```
-GOOGLE_API_KEY=...
+GEMINI_KEY=...
 ```
 
 Run
