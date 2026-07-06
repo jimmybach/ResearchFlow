@@ -6,7 +6,7 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/ResearchFlow.git
+git clone https://github.com/jimmybach/ResearchFlow.git
 cd ResearchFlow
 
 python3 -m venv .venv
@@ -17,7 +17,7 @@ pip install -r requirements.txt
 cp .env.example .env
 # Add your Google API key to .env
 
-streamlit run app/streamlit_app.py
+streamlit run app/streamlit_ui.py
 ```
 ---
 ## Overview
