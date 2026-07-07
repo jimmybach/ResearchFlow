@@ -3,6 +3,10 @@
 > An agentic literature review assistant that automatically searches PubMed, retrieves and ranks relevant research papers, synthesizes evidence, critiques its own review, and exports a publication-ready literature review.
 
 ---
+
+## Demo
+
+Watch the demo video for Research Flow on [YoutTube](https://youtu.be/wz89dV10qFM)
 ## Quick Start
 
 ```bash
