@@ -26,7 +26,7 @@
 
 ## Demo
 
-Watch the demo video for Research Flow on [YouTube](https://youtu.be/vDiqEymjsjA))
+Watch the demo video for Research Flow on [YouTube](https://youtu.be/vDiqEymjsjA)
 
 ---
 
