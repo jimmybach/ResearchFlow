@@ -4,6 +4,29 @@
 
 ---
 
+## Demo
+
+Watch the demo video for Research Flow on [YouTube](https://youtu.be/wz89dV10qFM)
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/jimmybach/ResearchFlow.git
+cd ResearchFlow
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install -e .
+
+cp .env.example .env
+# Add your Google API key to .env
+
+streamlit run app/streamlit_ui.py
+```
+---
 ## Overview
 
 ResearchFlow is an AI-powered research assistant built with LangGraph that automates the early stages of scientific literature review.
