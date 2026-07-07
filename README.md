@@ -6,7 +6,7 @@
 
 ## Demo
 
-Watch the demo video for Research Flow on [YoutTube](https://youtu.be/wz89dV10qFM)
+Watch the demo video for Research Flow on [YouTube](https://youtu.be/wz89dV10qFM)
 
 ---
 
