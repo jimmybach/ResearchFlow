@@ -1,5 +1,25 @@
 # ResearchFlow
 
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+
+![LangGraph](https://img.shields.io/badge/LangGraph-Agentic_Workflows-1C3C3C)
+
+![LangChain](https://img.shields.io/badge/LangChain-Framework-1C3C3C)
+
+![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white)
+
+![Gemini](https://img.shields.io/badge/Gemini-LLM-4285F4?logo=google&logoColor=white)
+
+![PubMed](https://img.shields.io/badge/PubMed-NCBI-326599)
+
+![Sentence Transformers](https://img.shields.io/badge/Sentence--Transformers-Embeddings-orange)
+
+![MCP](https://img.shields.io/badge/Model_Context_Protocol-MCP-blueviolet)
+
+![Markdown](https://img.shields.io/badge/Export-Markdown-000000?logo=markdown)
+
+![MIT License](https://img.shields.io/badge/License-MIT-green)
+
 > An agentic literature review assistant that automatically searches PubMed, retrieves and ranks relevant research papers, synthesizes evidence, critiques its own review, and exports a publication-ready literature review.
 
 ---
