@@ -13,6 +13,7 @@ sys.path.append(str(ROOT_DIR))
 from src.graph.graph import graph
 from src.services.mcp.pubmed import pubmed_service
 from src.utils.logging import setup_logging
+from src.utils.ui import render_paper_card
 
 
 st.set_page_config(
@@ -208,37 +209,15 @@ with results_col:
     with tab_papers:
         st.subheader("Ranked Papers")
 
+        papers = result.get("ranked_papers", [])
+
         if not result:
             st.info("Ranked papers will appear here.")
+        elif not papers:
+            st.info("No ranked papers found.")
         else:
-            papers = result.get("ranked_papers", [])
-
-            if not papers:
-                st.info("No ranked papers found.")
-            else:
-                paper_rows = [
-                    {
-                        "Title": paper.title,
-                        "PMID": paper.pmid,
-                        "Journal": paper.journal,
-                        "Score": getattr(paper, "relevance_score", None),
-                    }
-                    for paper in papers
-                ]
-
-                st.dataframe(paper_rows, use_container_width=True)
-
-                st.divider()
-
-                for paper in papers:
-                    with st.expander(paper.title):
-                        st.markdown(
-                            f"**PMID:** [{paper.pmid}](https://pubmed.ncbi.nlm.nih.gov/{paper.pmid}/)"
-                        )
-                        st.markdown(f"**Journal:** {paper.journal}")
-                        st.markdown(f"**DOI:** {paper.doi}")
-                        st.markdown("**Abstract**")
-                        st.write(paper.abstract)
+            for paper in papers:
+                render_paper_card(paper)
 
     with tab_citations:
         st.subheader("Citations")
