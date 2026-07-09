@@ -209,15 +209,16 @@ with results_col:
     with tab_papers:
         st.subheader("Ranked Papers")
 
-        papers = result.get("ranked_papers", [])
-
         if not result:
             st.info("Ranked papers will appear here.")
-        elif not papers:
-            st.info("No ranked papers found.")
         else:
-            for paper in papers:
-                render_paper_card(paper)
+            papers = result.get("ranked_papers", [])
+
+            if not papers:
+                st.info("No ranked papers found.")
+            else:
+                for paper in papers:
+                    render_paper_card(paper)
 
     with tab_citations:
         st.subheader("Citations")
